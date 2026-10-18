@@ -1,0 +1,1106 @@
+{
+ "config": {
+  "device": "cuda",
+  "dtype": "float16",
+  "B": 1,
+  "T": 2048,
+  "C": 128,
+  "D": 768,
+  "H": 12,
+  "L": 12,
+  "iters": 40,
+  "warmup": 5,
+  "nprof": 5,
+  "systems": "ordinary,suffixkv,incgraph[region],incgraph[region+packed]",
+  "out": "bench_results_v2.json",
+  "breakdown": false,
+  "interleave": true,
+  "compact": false,
+  "sweep": false,
+  "sweep_systems": "ordinary,suffixkv,incgraph[slab],incgraph[region+packed],incgraph[none+batch]",
+  "sweep_iters": 15
+ },
+ "results": [
+  {
+   "wall_p50": 24.44648100026825,
+   "wall_p10": 23.985223999261507,
+   "wall_p90": 24.692447999768774,
+   "host_p50": 3.548931999830529,
+   "n": 40,
+   "executed": null,
+   "syncs": 0,
+   "cutoff_hits": 0,
+   "checks": null,
+   "batch_calls": null,
+   "cache_MiB": 0.0,
+   "kernels": 120.0,
+   "kernel_ms": 23.005027200000004,
+   "memcpy": 13.0,
+   "top_kernels": [
+    [
+     "turing_fp16_s1688gemm_fp16_128x128_ldg8_f2f_tn",
+     8.036
+    ],
+    [
+     "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::Attent",
+     7.916
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_256x128_ldg8_f2f_tn",
+     3.917
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::GeluCUDA",
+     1.244
+    ],
+    [
+     "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c",
+     0.99
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunc",
+     0.902
+    ],
+    [
+     "Memset (Device)",
+     0.015
+    ],
+    [
+     "Memcpy DtoD (Device -> Device)",
+     0.004
+    ]
+   ],
+   "scenario": "edit-first",
+   "system": "ordinary",
+   "max_err_vs_ordinary": 0.0,
+   "verified": true
+  },
+  {
+   "wall_p50": 25.642277999395446,
+   "wall_p10": 25.278068999796233,
+   "wall_p90": 25.989481000578962,
+   "host_p50": 4.281384000023536,
+   "n": 40,
+   "executed": null,
+   "syncs": 0,
+   "cutoff_hits": 0,
+   "checks": null,
+   "batch_calls": null,
+   "cache_MiB": 72.0,
+   "kernels": 145.0,
+   "kernel_ms": 23.207968799999975,
+   "memcpy": 13.0,
+   "top_kernels": [
+    [
+     "turing_fp16_s1688gemm_fp16_128x128_ldg8_f2f_tn",
+     7.756
+    ],
+    [
+     "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::Attent",
+     7.515
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_256x128_ldg8_f2f_tn",
+     3.765
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::GeluCUDA",
+     1.256
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_imp",
+     1.023
+    ],
+    [
+     "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c",
+     0.951
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunc",
+     0.912
+    ],
+    [
+     "void at::native::(anonymous namespace)::CatArrayBatchedCopy_vectorized",
+     0.029
+    ]
+   ],
+   "scenario": "edit-first",
+   "system": "suffixkv",
+   "max_err_vs_ordinary": 0.0,
+   "verified": true
+  },
+  {
+   "wall_p50": 26.125365000552847,
+   "wall_p10": 25.73679900069692,
+   "wall_p90": 26.50428499964619,
+   "host_p50": 5.399222999585618,
+   "n": 40,
+   "executed": 369.0,
+   "syncs": 0.0,
+   "cutoff_hits": 0.0,
+   "checks": 0.0,
+   "batch_calls": 23.0,
+   "cache_MiB": 147.0,
+   "kernels": 156.0,
+   "kernel_ms": 23.16336779999998,
+   "memcpy": 25.0,
+   "top_kernels": [
+    [
+     "turing_fp16_s1688gemm_fp16_128x128_ldg8_f2f_tn",
+     7.456
+    ],
+    [
+     "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::Attent",
+     7.446
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_256x128_ldg8_f2f_tn",
+     3.732
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_imp",
+     1.413
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::GeluCUDA",
+     1.257
+    ],
+    [
+     "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c",
+     0.92
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunc",
+     0.905
+    ],
+    [
+     "Memcpy DtoD (Device -> Device)",
+     0.237
+    ]
+   ],
+   "scenario": "edit-first",
+   "system": "incgraph[region]",
+   "max_err_vs_ordinary": 0.03125,
+   "verified": true
+  },
+  {
+   "wall_p50": 24.024225999710325,
+   "wall_p10": 23.55989599982422,
+   "wall_p90": 24.338033000276482,
+   "host_p50": 4.4023930004186695,
+   "n": 40,
+   "executed": 369.0,
+   "syncs": 0.0,
+   "cutoff_hits": 0.0,
+   "checks": 0.0,
+   "batch_calls": 23.0,
+   "cache_MiB": 147.0,
+   "kernels": 96.0,
+   "kernel_ms": 21.097492199999984,
+   "memcpy": 37.0,
+   "top_kernels": [
+    [
+     "turing_fp16_s1688gemm_fp16_128x128_ldg8_f2f_tn",
+     7.66
+    ],
+    [
+     "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::Attent",
+     7.478
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_256x128_ldg8_f2f_tn",
+     3.76
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::GeluCUDA",
+     1.263
+    ],
+    [
+     "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c",
+     0.905
+    ],
+    [
+     "Memcpy DtoD (Device -> Device)",
+     0.595
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x64_sliced1x2_ldg8_f2f_tn",
+     0.032
+    ],
+    [
+     "Memset (Device)",
+     0.014
+    ]
+   ],
+   "scenario": "edit-first",
+   "system": "incgraph[region+packed]",
+   "max_err_vs_ordinary": 0.0390625,
+   "verified": true
+  },
+  {
+   "wall_p50": 23.433610000211047,
+   "wall_p10": 22.977616999924066,
+   "wall_p90": 23.996814000383893,
+   "host_p50": 4.512163000072178,
+   "n": 40,
+   "executed": null,
+   "syncs": 0,
+   "cutoff_hits": 0,
+   "checks": null,
+   "batch_calls": null,
+   "cache_MiB": 0.0,
+   "kernels": 120.0,
+   "kernel_ms": 24.119475600000005,
+   "memcpy": 13.0,
+   "top_kernels": [
+    [
+     "turing_fp16_s1688gemm_fp16_128x128_ldg8_f2f_tn",
+     8.475
+    ],
+    [
+     "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::Attent",
+     8.324
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_256x128_ldg8_f2f_tn",
+     4.136
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::GeluCUDA",
+     1.236
+    ],
+    [
+     "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c",
+     1.042
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunc",
+     0.907
+    ],
+    [
+     "Memset (Device)",
+     0.015
+    ],
+    [
+     "Memcpy DtoD (Device -> Device)",
+     0.004
+    ]
+   ],
+   "scenario": "edit-mid",
+   "system": "ordinary",
+   "max_err_vs_ordinary": 0.0,
+   "verified": true
+  },
+  {
+   "wall_p50": 15.52161299969157,
+   "wall_p10": 15.063300000292656,
+   "wall_p90": 15.883106999353913,
+   "host_p50": 6.99026500024047,
+   "n": 40,
+   "executed": null,
+   "syncs": 0,
+   "cutoff_hits": 0,
+   "checks": null,
+   "batch_calls": null,
+   "cache_MiB": 72.0,
+   "kernels": 145.0,
+   "kernel_ms": 11.765522600000011,
+   "memcpy": 13.0,
+   "top_kernels": [
+    [
+     "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::Attent",
+     4.759
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x128_ldg8_f2f_tn",
+     3.881
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_256x128_ldg8_f2f_tn",
+     1.289
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::GeluCUDA",
+     0.642
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_imp",
+     0.507
+    ],
+    [
+     "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c",
+     0.362
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunc",
+     0.31
+    ],
+    [
+     "void at::native::(anonymous namespace)::CatArrayBatchedCopy_vectorized",
+     0.014
+    ]
+   ],
+   "scenario": "edit-mid",
+   "system": "suffixkv",
+   "max_err_vs_ordinary": 0.03515625,
+   "verified": true
+  },
+  {
+   "wall_p50": 15.84904799983633,
+   "wall_p10": 15.26583600025333,
+   "wall_p90": 16.094911000436696,
+   "host_p50": 8.236670000769664,
+   "n": 40,
+   "executed": 185.0,
+   "syncs": 0.0,
+   "cutoff_hits": 0.0,
+   "checks": 0.0,
+   "batch_calls": 23.0,
+   "cache_MiB": 147.0,
+   "kernels": 156.0,
+   "kernel_ms": 12.105541200000003,
+   "memcpy": 25.0,
+   "top_kernels": [
+    [
+     "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::Attent",
+     4.851
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x128_ldg8_f2f_tn",
+     3.98
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_256x128_ldg8_f2f_tn",
+     1.21
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_imp",
+     0.714
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::GeluCUDA",
+     0.642
+    ],
+    [
+     "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c",
+     0.364
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunc",
+     0.313
+    ],
+    [
+     "Memcpy DtoD (Device -> Device)",
+     0.064
+    ]
+   ],
+   "scenario": "edit-mid",
+   "system": "incgraph[region]",
+   "max_err_vs_ordinary": 0.03125,
+   "verified": true
+  },
+  {
+   "wall_p50": 14.714491000631824,
+   "wall_p10": 14.274907999606512,
+   "wall_p90": 15.047592999508197,
+   "host_p50": 6.695559000036155,
+   "n": 40,
+   "executed": 185.0,
+   "syncs": 0.0,
+   "cutoff_hits": 0.0,
+   "checks": 0.0,
+   "batch_calls": 23.0,
+   "cache_MiB": 147.0,
+   "kernels": 96.0,
+   "kernel_ms": 11.295061000000004,
+   "memcpy": 37.0,
+   "top_kernels": [
+    [
+     "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::Attent",
+     4.925
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x128_ldg8_f2f_tn",
+     4.074
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_256x128_ldg8_f2f_tn",
+     1.232
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::GeluCUDA",
+     0.64
+    ],
+    [
+     "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c",
+     0.394
+    ],
+    [
+     "Memcpy DtoD (Device -> Device)",
+     0.284
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x64_sliced1x2_ldg8_f2f_tn",
+     0.03
+    ],
+    [
+     "Memset (Device)",
+     0.013
+    ]
+   ],
+   "scenario": "edit-mid",
+   "system": "incgraph[region+packed]",
+   "max_err_vs_ordinary": 0.046875,
+   "verified": true
+  },
+  {
+   "wall_p50": 21.00980300019728,
+   "wall_p10": 18.46635400033847,
+   "wall_p90": 22.56598900021345,
+   "host_p50": 4.406739000842208,
+   "n": 40,
+   "executed": null,
+   "syncs": 0,
+   "cutoff_hits": 0,
+   "checks": null,
+   "batch_calls": null,
+   "cache_MiB": 0.0,
+   "kernels": 120.0,
+   "kernel_ms": 23.27590100000001,
+   "memcpy": 13.0,
+   "top_kernels": [
+    [
+     "turing_fp16_s1688gemm_fp16_128x128_ldg8_f2f_tn",
+     8.156
+    ],
+    [
+     "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::Attent",
+     7.985
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_256x128_ldg8_f2f_tn",
+     3.977
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::GeluCUDA",
+     1.243
+    ],
+    [
+     "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c",
+     1.008
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunc",
+     0.906
+    ],
+    [
+     "Memset (Device)",
+     0.015
+    ],
+    [
+     "Memcpy DtoD (Device -> Device)",
+     0.004
+    ]
+   ],
+   "scenario": "edit-last",
+   "system": "ordinary",
+   "max_err_vs_ordinary": 0.0,
+   "verified": true
+  },
+  {
+   "wall_p50": 6.883105999804684,
+   "wall_p10": 6.625197999710508,
+   "wall_p90": 7.49176399949647,
+   "host_p50": 6.8391129998417455,
+   "n": 40,
+   "executed": null,
+   "syncs": 0,
+   "cutoff_hits": 0,
+   "checks": null,
+   "batch_calls": null,
+   "cache_MiB": 72.0,
+   "kernels": 156.0,
+   "kernel_ms": 3.5142370000000085,
+   "memcpy": 1.0,
+   "top_kernels": [
+    [
+     "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::Attent",
+     1.798
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x128_ldg8_f2f_tn",
+     0.855
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x64_sliced1x2_ldg8_f2f_tn",
+     0.357
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_64x64_sliced1x4_ldg8_f2f_tn",
+     0.185
+    ],
+    [
+     "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c",
+     0.088
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_imp",
+     0.07
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunc",
+     0.063
+    ],
+    [
+     "void cublasLt::splitKreduce_kernel<32, 16, int, __half, __half, float,",
+     0.055
+    ]
+   ],
+   "scenario": "edit-last",
+   "system": "suffixkv",
+   "max_err_vs_ordinary": 0.0234375,
+   "verified": true
+  },
+  {
+   "wall_p50": 8.205558000554447,
+   "wall_p10": 7.9619299995101755,
+   "wall_p90": 9.08795800023654,
+   "host_p50": 8.152014000188501,
+   "n": 40,
+   "executed": 24.0,
+   "syncs": 0.0,
+   "cutoff_hits": 0.0,
+   "checks": 0.0,
+   "batch_calls": 0.0,
+   "cache_MiB": 147.0,
+   "kernels": 168.0,
+   "kernel_ms": 3.5351675999999905,
+   "memcpy": 13.0,
+   "top_kernels": [
+    [
+     "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::Attent",
+     1.783
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x128_ldg8_f2f_tn",
+     0.856
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x64_sliced1x2_ldg8_f2f_tn",
+     0.364
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_64x64_sliced1x4_ldg8_f2f_tn",
+     0.184
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_imp",
+     0.1
+    ],
+    [
+     "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c",
+     0.086
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunc",
+     0.064
+    ],
+    [
+     "void cublasLt::splitKreduce_kernel<32, 16, int, __half, __half, float,",
+     0.054
+    ]
+   ],
+   "scenario": "edit-last",
+   "system": "incgraph[region]",
+   "max_err_vs_ordinary": 0.0234375,
+   "verified": true
+  },
+  {
+   "wall_p50": 6.614924999666982,
+   "wall_p10": 6.430462000025727,
+   "wall_p90": 7.147584000449569,
+   "host_p50": 6.535604999953648,
+   "n": 40,
+   "executed": 24.0,
+   "syncs": 0.0,
+   "cutoff_hits": 0.0,
+   "checks": 0.0,
+   "batch_calls": 0.0,
+   "cache_MiB": 147.0,
+   "kernels": 108.0,
+   "kernel_ms": 3.4341339999999994,
+   "memcpy": 25.0,
+   "top_kernels": [
+    [
+     "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::Attent",
+     1.824
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x128_ldg8_f2f_tn",
+     0.865
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x64_sliced1x2_ldg8_f2f_tn",
+     0.352
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_64x64_sliced1x4_ldg8_f2f_tn",
+     0.187
+    ],
+    [
+     "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c",
+     0.089
+    ],
+    [
+     "void cublasLt::splitKreduce_kernel<32, 16, int, __half, __half, float,",
+     0.074
+    ],
+    [
+     "Memcpy DtoD (Device -> Device)",
+     0.068
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::GeluCUDA",
+     0.043
+    ]
+   ],
+   "scenario": "edit-last",
+   "system": "incgraph[region+packed]",
+   "max_err_vs_ordinary": 0.046875,
+   "verified": true
+  },
+  {
+   "wall_p50": 23.697372999777144,
+   "wall_p10": 23.016974000711343,
+   "wall_p90": 24.214704000769416,
+   "host_p50": 4.426912000781158,
+   "n": 40,
+   "executed": null,
+   "syncs": 0,
+   "cutoff_hits": 0,
+   "checks": null,
+   "batch_calls": null,
+   "cache_MiB": 0.0,
+   "kernels": 120.0,
+   "kernel_ms": 24.245214399999984,
+   "memcpy": 13.0,
+   "top_kernels": [
+    [
+     "turing_fp16_s1688gemm_fp16_128x128_ldg8_f2f_tn",
+     8.511
+    ],
+    [
+     "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::Attent",
+     8.394
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_256x128_ldg8_f2f_tn",
+     4.153
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::GeluCUDA",
+     1.236
+    ],
+    [
+     "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c",
+     1.046
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunc",
+     0.906
+    ],
+    [
+     "Memset (Device)",
+     0.016
+    ],
+    [
+     "Memcpy DtoD (Device -> Device)",
+     0.004
+    ]
+   ],
+   "scenario": "noop-mid",
+   "system": "ordinary",
+   "max_err_vs_ordinary": 0.0,
+   "verified": true
+  },
+  {
+   "wall_p50": 15.708881000136898,
+   "wall_p10": 15.188045999821043,
+   "wall_p90": 15.921750999950746,
+   "host_p50": 6.728663000103552,
+   "n": 40,
+   "executed": null,
+   "syncs": 0,
+   "cutoff_hits": 0,
+   "checks": null,
+   "batch_calls": null,
+   "cache_MiB": 72.0,
+   "kernels": 145.0,
+   "kernel_ms": 12.172786999999985,
+   "memcpy": 13.0,
+   "top_kernels": [
+    [
+     "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::Attent",
+     4.948
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x128_ldg8_f2f_tn",
+     4.032
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_256x128_ldg8_f2f_tn",
+     1.33
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::GeluCUDA",
+     0.642
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_imp",
+     0.518
+    ],
+    [
+     "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c",
+     0.377
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunc",
+     0.312
+    ],
+    [
+     "void at::native::(anonymous namespace)::CatArrayBatchedCopy_vectorized",
+     0.014
+    ]
+   ],
+   "scenario": "noop-mid",
+   "system": "suffixkv",
+   "max_err_vs_ordinary": 0.0234375,
+   "verified": true
+  },
+  {
+   "wall_p50": 15.894776999630267,
+   "wall_p10": 15.249281999786035,
+   "wall_p90": 16.223026999796275,
+   "host_p50": 7.959146000757755,
+   "n": 40,
+   "executed": 185.0,
+   "syncs": 0.0,
+   "cutoff_hits": 0.0,
+   "checks": 0.0,
+   "batch_calls": 23.0,
+   "cache_MiB": 147.0,
+   "kernels": 156.0,
+   "kernel_ms": 12.37565399999998,
+   "memcpy": 25.0,
+   "top_kernels": [
+    [
+     "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::Attent",
+     4.995
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x128_ldg8_f2f_tn",
+     4.065
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_256x128_ldg8_f2f_tn",
+     1.237
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_imp",
+     0.721
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::GeluCUDA",
+     0.64
+    ],
+    [
+     "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c",
+     0.376
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunc",
+     0.312
+    ],
+    [
+     "Memcpy DtoD (Device -> Device)",
+     0.065
+    ]
+   ],
+   "scenario": "noop-mid",
+   "system": "incgraph[region]",
+   "max_err_vs_ordinary": 0.03125,
+   "verified": true
+  },
+  {
+   "wall_p50": 14.933966000171495,
+   "wall_p10": 14.206852999450348,
+   "wall_p90": 15.238700999361754,
+   "host_p50": 6.525137000608083,
+   "n": 40,
+   "executed": 185.0,
+   "syncs": 0.0,
+   "cutoff_hits": 0.0,
+   "checks": 0.0,
+   "batch_calls": 23.0,
+   "cache_MiB": 147.0,
+   "kernels": 96.0,
+   "kernel_ms": 11.485552000000002,
+   "memcpy": 37.0,
+   "top_kernels": [
+    [
+     "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::Attent",
+     5.017
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x128_ldg8_f2f_tn",
+     4.146
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_256x128_ldg8_f2f_tn",
+     1.25
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::GeluCUDA",
+     0.64
+    ],
+    [
+     "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c",
+     0.401
+    ],
+    [
+     "Memcpy DtoD (Device -> Device)",
+     0.285
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x64_sliced1x2_ldg8_f2f_tn",
+     0.031
+    ],
+    [
+     "Memset (Device)",
+     0.012
+    ]
+   ],
+   "scenario": "noop-mid",
+   "system": "incgraph[region+packed]",
+   "max_err_vs_ordinary": 0.046875,
+   "verified": true
+  },
+  {
+   "wall_p50": 17.45489900076791,
+   "wall_p10": 15.09453500057134,
+   "wall_p90": 21.57423500011646,
+   "host_p50": 4.696141999374959,
+   "n": 5,
+   "executed": null,
+   "syncs": 0,
+   "cutoff_hits": 0,
+   "checks": null,
+   "batch_calls": null,
+   "cache_MiB": 0.0,
+   "kernels": 120.0,
+   "kernel_ms": 19.225338000000015,
+   "memcpy": 13.0,
+   "top_kernels": [
+    [
+     "turing_fp16_s1688gemm_fp16_128x128_ldg8_f2f_tn",
+     8.237
+    ],
+    [
+     "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::Attent",
+     6.291
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_256x128_ldg8_f2f_tn",
+     1.75
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::GeluCUDA",
+     1.238
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunc",
+     0.869
+    ],
+    [
+     "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c",
+     0.841
+    ],
+    [
+     "Memset (Device)",
+     0.013
+    ],
+    [
+     "Memcpy DtoD (Device -> Device)",
+     0.004
+    ]
+   ],
+   "scenario": "append",
+   "system": "ordinary",
+   "max_err_vs_ordinary": 0.0,
+   "verified": true
+  },
+  {
+   "wall_p50": 7.050336000247626,
+   "wall_p10": 6.687408999823674,
+   "wall_p90": 7.933462999972107,
+   "host_p50": 6.968528000470542,
+   "n": 5,
+   "executed": null,
+   "syncs": 0,
+   "cutoff_hits": 0,
+   "checks": null,
+   "batch_calls": null,
+   "cache_MiB": 72.0,
+   "kernels": 156.0,
+   "kernel_ms": 3.4872489999999865,
+   "memcpy": 1.0,
+   "top_kernels": [
+    [
+     "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::Attent",
+     1.765
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x128_ldg8_f2f_tn",
+     0.857
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x64_sliced1x2_ldg8_f2f_tn",
+     0.356
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_64x64_sliced1x4_ldg8_f2f_tn",
+     0.187
+    ],
+    [
+     "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c",
+     0.089
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_imp",
+     0.07
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunc",
+     0.063
+    ],
+    [
+     "void cublasLt::splitKreduce_kernel<32, 16, int, __half, __half, float,",
+     0.055
+    ]
+   ],
+   "scenario": "append",
+   "system": "suffixkv",
+   "max_err_vs_ordinary": 0.03125,
+   "verified": true
+  },
+  {
+   "wall_p50": 8.176604000254883,
+   "wall_p10": 8.055034000790329,
+   "wall_p90": 8.392224999624887,
+   "host_p50": 8.142724999743223,
+   "n": 5,
+   "executed": 24.0,
+   "syncs": 0.0,
+   "cutoff_hits": 0.0,
+   "checks": 0.0,
+   "batch_calls": 0.0,
+   "cache_MiB": 147.0,
+   "kernels": 168.0,
+   "kernel_ms": 3.498494499999992,
+   "memcpy": 13.0,
+   "top_kernels": [
+    [
+     "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::Attent",
+     1.744
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x128_ldg8_f2f_tn",
+     0.855
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x64_sliced1x2_ldg8_f2f_tn",
+     0.363
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_64x64_sliced1x4_ldg8_f2f_tn",
+     0.186
+    ],
+    [
+     "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_imp",
+     0.101
+    ],
+    [
+     "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c",
+     0.087
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunc",
+     0.064
+    ],
+    [
+     "void cublasLt::splitKreduce_kernel<32, 16, int, __half, __half, float,",
+     0.054
+    ]
+   ],
+   "scenario": "append",
+   "system": "incgraph[region]",
+   "max_err_vs_ordinary": 0.03125,
+   "verified": true
+  },
+  {
+   "wall_p50": 6.862926000394509,
+   "wall_p10": 6.842935999884503,
+   "wall_p90": 8.75340899983712,
+   "host_p50": 6.813764000071387,
+   "n": 5,
+   "executed": 24.0,
+   "syncs": 0.0,
+   "cutoff_hits": 0.0,
+   "checks": 0.0,
+   "batch_calls": 0.0,
+   "cache_MiB": 147.0,
+   "kernels": 108.0,
+   "kernel_ms": 3.38104799999999,
+   "memcpy": 25.0,
+   "top_kernels": [
+    [
+     "fmha_cutlassF_f16_aligned_64x64_rf_sm75(PyTorchMemEffAttention::Attent",
+     1.769
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x128_ldg8_f2f_tn",
+     0.865
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_128x64_sliced1x2_ldg8_f2f_tn",
+     0.353
+    ],
+    [
+     "turing_fp16_s1688gemm_fp16_64x64_sliced1x4_ldg8_f2f_tn",
+     0.187
+    ],
+    [
+     "void at::native::(anonymous namespace)::vectorized_layer_norm_kernel<c",
+     0.089
+    ],
+    [
+     "void cublasLt::splitKreduce_kernel<32, 16, int, __half, __half, float,",
+     0.074
+    ],
+    [
+     "Memcpy DtoD (Device -> Device)",
+     0.069
+    ],
+    [
+     "void at::native::vectorized_elementwise_kernel<4, at::native::GeluCUDA",
+     0.044
+    ]
+   ],
+   "scenario": "append",
+   "system": "incgraph[region+packed]",
+   "max_err_vs_ordinary": 0.046875,
+   "verified": true
+  }
+ ],
+ "sweep": null
+}
