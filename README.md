@@ -1,5 +1,4 @@
 # FootprintInc
-I'll check the two files that didn't come through in the text (bench2.py and incgraph2.py) before writing.I read all four files. bench2.py and incgraph2.py didn't come through in the message text, so I read them from disk. Everything below comes from your code and its docstrings.
 
 ---
 
